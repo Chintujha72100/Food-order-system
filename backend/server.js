@@ -17,6 +17,13 @@ import userRoutes from './routes/userRoutes.js';
 dotenv.config();
 
 const app = express();
+
+// 1. CORS & Body Parsing (Must be first for preflight requests!)
+app.use(cors({
+    origin: true, // Allows all origins dynamically
+    credentials: true,
+}));
+
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
@@ -87,10 +94,7 @@ app.use('/api', limiter);
 
 // 3. CORS & Body Parsing
 
-app.use(cors({
-    origin: true,
-    credentials: true,
-}));
+// CORS is now at the top
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
