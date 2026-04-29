@@ -42,7 +42,7 @@ export default function Cart() {
 
     const applyCoupon = async () => {
         try {
-            const { data } = await axios.post(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/coupons/validate', { code: coupon });
+            const { data } = await axios.post('http://localhost:5001/api/coupons/validate', { code: coupon });
             setDiscount(data.discountPercentage / 100);
             setCouponMessage({ text: `Coupon applied successfully! ${data.discountPercentage}% off.`, type: 'success' });
         } catch (error) {
@@ -75,7 +75,7 @@ export default function Cart() {
                 }
             }
 
-            await axios.post(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/orders', {
+            await axios.post('http://localhost:5001/api/orders', {
                 items: cart.map(item => ({
                     product: item.product._id,
                     quantity: item.quantity,

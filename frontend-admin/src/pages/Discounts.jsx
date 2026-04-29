@@ -9,7 +9,7 @@ export default function Discounts() {
 
     const fetchCoupons = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/coupons');
+            const { data } = await axios.get('http://localhost:5001/api/coupons');
             setCoupons(data);
         } catch (error) {
             console.error('Error fetching coupons', error);
@@ -22,7 +22,7 @@ export default function Discounts() {
 
     const toggleStatus = async (id) => {
         try {
-            await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/coupons/${id}/toggle`, {}, {
+            await axios.put(`http://localhost:5001/api/coupons/${id}/toggle`, {}, {
                 headers: { Authorization: `Bearer FAKE_TOKEN` }
             });
             fetchCoupons();
@@ -34,7 +34,7 @@ export default function Discounts() {
     const handleCreateCoupon = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/coupons', newCoupon, {
+            await axios.post('http://localhost:5001/api/coupons', newCoupon, {
                 headers: { Authorization: `Bearer FAKE_TOKEN` }
             });
             setIsModalOpen(false);

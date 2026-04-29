@@ -16,7 +16,7 @@ export default function MenuManagement() {
 
     const fetchProducts = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/products');
+            const { data } = await axios.get('http://localhost:5001/api/products');
             setItems(data);
         } catch (error) {
             console.error('Failed to fetch products', error);
@@ -38,11 +38,11 @@ export default function MenuManagement() {
         e.preventDefault();
         try {
             if (editingId) {
-                await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products/${editingId}`, newItem, {
+                await axios.put(`http://localhost:5001/api/products/${editingId}`, newItem, {
                     headers: { Authorization: `Bearer FAKE_TOKEN` }
                 });
             } else {
-                await axios.post(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/products', newItem, {
+                await axios.post('http://localhost:5001/api/products', newItem, {
                     headers: { Authorization: `Bearer FAKE_TOKEN` }
                 });
             }
@@ -72,7 +72,7 @@ export default function MenuManagement() {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this dish?')) {
             try {
-                await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products/${id}`, {
+                await axios.delete(`http://localhost:5001/api/products/${id}`, {
                     headers: { Authorization: `Bearer FAKE_TOKEN` }
                 });
                 fetchProducts();
@@ -87,7 +87,7 @@ export default function MenuManagement() {
     const handleDeleteReview = async (productId, reviewId) => {
         if (window.confirm('Delete this review?')) {
             try {
-                await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products/${productId}/reviews/${reviewId}`, {
+                await axios.delete(`http://localhost:5001/api/products/${productId}/reviews/${reviewId}`, {
                     headers: { Authorization: `Bearer FAKE_TOKEN` }
                 });
 
