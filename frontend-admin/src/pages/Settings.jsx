@@ -22,7 +22,7 @@ export default function Settings() {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5001/api/settings');
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/settings');
                 if (data && data.storeLocation) {
                     setSettings(data);
                 }
@@ -87,7 +87,7 @@ export default function Settings() {
     const saveSettings = async () => {
         setIsSaving(true);
         try {
-            await axios.put('http://localhost:5001/api/settings', {
+            await axios.put(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/settings', {
                 storeLocation: settings.storeLocation
             });
             alert('Store Location saved successfully!');

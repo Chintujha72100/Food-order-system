@@ -29,7 +29,7 @@ export default function Menu() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5001/api/products');
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/products');
                 setProducts(data);
             } catch (error) {
                 console.error('Failed to fetch products', error);
@@ -71,14 +71,14 @@ export default function Menu() {
     const submitReview = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`http://localhost:5001/api/products/${reviewingProduct._id}/reviews`, {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/products/${reviewingProduct._id}/reviews`, {
                 rating, comment: reviewText
             }, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
             // Refresh products to show new rating
-            const { data } = await axios.get('http://localhost:5001/api/products');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/products');
             setProducts(data);
 
             setReviewModalOpen(false);

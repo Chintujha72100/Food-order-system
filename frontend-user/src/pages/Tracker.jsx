@@ -7,7 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5001');
+const socket = io(import.meta.env.VITE_API_URL || 'http://localhost:5001'');
 
 // Create custom icons for Leaflet using Lucide React styles
 const createIcon = (color, bg) => L.divIcon({
@@ -59,7 +59,7 @@ export default function Tracker() {
                 const user = JSON.parse(localStorage.getItem('cravebite_user'));
                 if (!user?.token) return;
 
-                const { data } = await axios.get('http://localhost:5001/api/orders/myorders', {
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/orders/myorders', {
                     headers: { Authorization: `Bearer ${user.token}` }
                 });
 
@@ -98,7 +98,7 @@ export default function Tracker() {
 
             try {
                 // Fetch the Global Store Location Settings continuously
-                const { data } = await axios.get('http://localhost:5001/api/settings');
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/settings');
                 if (data && data.storeLocation) {
                     setStoreSettings(data);
                 }

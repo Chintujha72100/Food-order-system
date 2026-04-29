@@ -10,7 +10,7 @@ const useFavoritesStore = create((set, get) => ({
             return;
         }
         try {
-            const { data } = await axios.get('http://localhost:5001/api/users/wishlist', {
+            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/users/wishlist', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             set({ favorites: data.map(product => typeof product === 'object' ? product._id : product) });
@@ -35,7 +35,7 @@ const useFavoritesStore = create((set, get) => ({
         }
 
         try {
-            await axios.post(`http://localhost:5001/api/users/wishlist/${productId}`, {}, {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/users/wishlist/${productId}`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
         } catch (error) {

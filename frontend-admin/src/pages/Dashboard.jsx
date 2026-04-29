@@ -16,7 +16,7 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchAnalytics = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5001/api/analytics');
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || import.meta.env.VITE_API_URL || 'http://localhost:5001''}/api/analytics');
                 setStats(data.stats);
                 setChartData(data.chartData);
             } catch (error) {

@@ -1,0 +1,43 @@
+services:
+  # 1. Backend REST API + Socket.IO Server
+  - type: web
+    name: cravebite-api
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5001
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+
+  # 2. Frontend User Application
+  - type: web
+    name: cravebite-user
+    env: static
+    rootDir: frontend-user
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: cravebite-api
+          envVarKey: RENDER_EXTERNAL_URL
+
+  # 3. Frontend Admin Dashboard
+  - type: web
+    name: cravebite-admin
+    env: static
+    rootDir: frontend-admin
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: cravebite-api
+          envVarKey: RENDER_EXTERNAL_URL
