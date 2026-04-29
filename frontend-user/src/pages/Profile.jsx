@@ -24,7 +24,7 @@ export default function Profile() {
 
         const fetchOrderHistory = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5001/api/orders/myorders', {
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/myorders`, {
                     headers: { Authorization: `Bearer ${user.token}` }
                 });
                 // Sort orders newest first
@@ -42,7 +42,7 @@ export default function Profile() {
     const submitReview = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.put(`http://localhost:5001/api/orders/${reviewingOrder._id}/review`, {
+            const { data } = await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/${reviewingOrder._id}/review`, {
                 rating,
                 reviewText
             }, {

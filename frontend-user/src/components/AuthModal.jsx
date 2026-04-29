@@ -19,7 +19,7 @@ export default function AuthModal() {
 
         try {
             const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-            const { data } = await axios.post(`http://localhost:5001${endpoint}`, formData);
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}${endpoint}`, formData);
             login(data);
         } catch (err) {
             setError(err.response?.data?.message || 'Authentication failed. Please try again.');

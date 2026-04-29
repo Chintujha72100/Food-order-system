@@ -18,7 +18,7 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-const socket = io('http://localhost:5001');
+const socket = io(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}`);
 
 // Initial Empty Shape
 const emptyColumns = {
@@ -187,7 +187,7 @@ export default function Orders() {
                     });
 
                     // Optionally update DB for persistence
-                    axios.patch(`http://localhost:5001/api/orders/${simulatingOrder._id}/location`, { lat: newLocation.lat, lng: newLocation.lng }, mockAuthConfig).catch(() => { });
+                    axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/${simulatingOrder._id}/location`, { lat: newLocation.lat, lng: newLocation.lng }, mockAuthConfig).catch(() => { });
                 }
             },
         });
@@ -205,7 +205,7 @@ export default function Orders() {
             try {
                 // Warning: Endpoint requires auth, for demo we rely on simplified controllers or unprotected test route 
                 // Alternatively, create a guest-friendly debug route, but keeping original structure for now.
-                const { data } = await axios.get('http://localhost:5001/api/orders', {
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders`, {
                     // Injecting mock auth since we don't have login connected
                 }).catch(() => ({ data: [] })); // Fail gracefully for mock demo
 
@@ -259,7 +259,7 @@ export default function Orders() {
 
         // Patch to MongoDB
         try {
-            await axios.patch(`http://localhost:5001/api/orders/${active.id}/status`, { status: destCol }, mockAuthConfig).catch(e => console.log("Mock API Mode Active"));
+            await axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/${active.id}/status`, { status: destCol }, mockAuthConfig).catch(e => console.log("Mock API Mode Active"));
         } catch (error) {
             console.error("Failed to update status in DB");
         }

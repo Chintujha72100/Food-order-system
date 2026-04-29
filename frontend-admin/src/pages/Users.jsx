@@ -10,7 +10,7 @@ export default function Users() {
         try {
             // For now, using mock auth token since admin panel uses FAKE_TOKEN
             // In a real app, grab from zustand auth store
-            const { data } = await axios.get('http://localhost:5001/api/users', {
+            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/users`, {
                 headers: { Authorization: `Bearer FAKE_TOKEN` }
             });
             setUsers(data);
@@ -33,7 +33,7 @@ export default function Users() {
 
         if (window.confirm("Are you sure you want to delete this user? Their orders will not be deleted.")) {
             try {
-                await axios.delete(`http://localhost:5001/api/users/${id}`, {
+                await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/users/${id}`, {
                     headers: { Authorization: `Bearer FAKE_TOKEN` }
                 });
                 setUsers(users.filter(u => u._id !== id));
