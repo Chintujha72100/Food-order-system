@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Tag, Plus, Check, X } from 'lucide-react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance';
 
 export default function Discounts() {
     const [coupons, setCoupons] = useState([]);

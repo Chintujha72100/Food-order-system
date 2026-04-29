@@ -1,7 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { DollarSign, ShoppingBag, Users, TrendingUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance';
 
 export default function Dashboard() {
     const [stats, setStats] = useState({

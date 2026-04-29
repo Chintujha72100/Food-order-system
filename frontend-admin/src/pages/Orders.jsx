@@ -3,7 +3,7 @@ import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, us
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useDroppable } from '@dnd-kit/core';
-import axios from 'axios';
+import axios from '../utils/axiosInstance';
 import { Star, MapPin } from 'lucide-react';
 import { io } from 'socket.io-client';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
@@ -187,7 +187,7 @@ export default function Orders() {
                     });
 
                     // Optionally update DB for persistence
-                    axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/${simulatingOrder._id}/location`, { lat: newLocation.lat, lng: newLocation.lng }, mockAuthConfig).catch(() => { });
+                    axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/${simulatingOrder._id}/location`, { lat: newLocation.lat, lng: newLocation.lng }).catch(() => { });
                 }
             },
         });
@@ -259,7 +259,7 @@ export default function Orders() {
 
         // Patch to MongoDB
         try {
-            await axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/${active.id}/status`, { status: destCol }, mockAuthConfig).catch(e => console.log("Mock API Mode Active"));
+            await axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/orders/${active.id}/status`, { status: destCol }).catch(e => console.log("Mock API Mode Active"));
         } catch (error) {
             console.error("Failed to update status in DB");
         }

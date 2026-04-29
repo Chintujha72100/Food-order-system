@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance';
 import { MapPin, Save, RefreshCw } from 'lucide-react';
 
 export default function Settings() {

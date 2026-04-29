@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Search, X, MessageSquare } from 'lucide-react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance';
 import toast from 'react-hot-toast';
 
 export default function MenuManagement() {

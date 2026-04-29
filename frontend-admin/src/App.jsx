@@ -8,6 +8,10 @@ import Orders from './pages/Orders';
 import Settings from './pages/Settings';
 import Users from './pages/Users';
 
+import Login from './pages/Login';
+import { useAuthStore } from './store/authStore';
+import { Toaster } from 'react-hot-toast';
+
 const PageTransition = ({ children }) => {
   return (
     <motion.div
@@ -39,8 +43,20 @@ const AnimatedRoutes = () => {
 };
 
 function App() {
+  const admin = useAuthStore(state => state.admin);
+
+  if (!admin) {
+    return (
+      <>
+        <Toaster position="top-center" />
+        <Login />
+      </>
+    );
+  }
+
   return (
     <Router>
+      <Toaster position="top-center" />
       <div className="flex min-h-screen bg-gray-50">
         <Sidebar />
         <main className="flex-grow p-8 overflow-y-auto h-screen">
